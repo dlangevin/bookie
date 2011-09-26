@@ -1,7 +1,10 @@
 class User < ActiveRecord::Base
 
   has_many :hookups
-  has_many  :challenges, :through => :hookups
+  has_many :challenges, :through => :hookups
+  
+  has_many :started_challenges, 
+    :class_name => "Challenge", :foreign_key => "started_by"  
   
   def self.is_admin?
     if self.is_admin == true

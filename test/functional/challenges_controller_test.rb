@@ -1,11 +1,14 @@
 require 'test_helper'
 
 class ChallengesControllerTest < ActionController::TestCase
+  
   setup do
     @challenge = challenges(:one)
+    @user = users(:one)
   end
 
   test "should get index" do
+    sign_in @user
     get :index
     assert_response :success
     assert_not_nil assigns(:challenges)
@@ -20,8 +23,8 @@ class ChallengesControllerTest < ActionController::TestCase
     assert_difference('Challenge.count') do
       post :create, :challenge => @challenge.attributes
     end
-
-    assert_redirected_to challenge_path(assigns(:challenge))
+    
+    assert_redirected_to root_path
   end
 
   test "should show challenge" do

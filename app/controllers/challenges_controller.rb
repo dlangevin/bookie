@@ -42,17 +42,16 @@ class ChallengesController < ApplicationController
   # POST /challenges.xml
   def create
     @challenge = Challenge.new(params[:challenge])
-	
-	@challenge.challenge_date = Date.today
-	@challenge.due_date = Date.today + 7
-	@challenge.complete = false
-	
-	#for Devise
-	if user_signed_in?
-		@challenge.user_id = current_user.id
-		@challenge.started_by = current_user.id
 
-	end
+    @challenge.challenge_date = Date.today
+    @challenge.due_date = Date.today + 7
+    @challenge.complete = false
+
+    #for Devise
+    if user_signed_in?
+      @challenge.user_id = current_user.id
+      @challenge.started_by = current_user.id
+    end
 
 
     respond_to do |format|

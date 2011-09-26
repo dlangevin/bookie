@@ -32,6 +32,9 @@ gem 'heroku'
 # Use this to push databse stuff to Heroku
 gem 'taps'
 
+group :test do
+  gem 'simplecov', :require => false
+end
 
 # Bundle the extra gems:
 # gem 'bj'

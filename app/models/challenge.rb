@@ -1,12 +1,17 @@
 class Challenge < ActiveRecord::Base
   has_many :hookups
-  has_many  :users, :through => :hookups
+  has_many :users, :through => :hookups
 
+  belongs_to :completer, :class_name => "User", :foreign_key => "completed_by"
+  belongs_to :starter, :class_name => "User", :foreign_key => "started_by"
+  
+  scope :opened, where(:complete => false).includes(:starter)
   
   # Devise
+  # TODO: refactor into a named scope and a separate instance method
 	def self.editable_by(user)
 	  if user.is_admin
-		Challenge.all
+		  Challenge.all
 	  else
 	    Challenge.where :user_id => user.id
 	  end
@@ -15,11 +20,11 @@ class Challenge < ActiveRecord::Base
 	
 
   def self.complete?
-	if self.complete == true
-	  return true
-	else 
-	  return false
-	end
+  	if self.complete == true
+  	  return true
+  	else 
+  	  return false
+  	end
   end
 	
 
